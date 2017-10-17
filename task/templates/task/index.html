@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if latest_Athlete_list %}
+
+    <table style="width:100%; border=5 solid blue;display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+    color: red;border-collapse: collapse">
+        <tr>
+        <th>firsname</th>
+        <th>lastname</th>
+            <th>phonenumber
+            <th>namesport</th>
+            <th>birth_data</th>
+            <th>visit_first_date</th>
+            <th>male</th>
+            <th>famel</th>
+            <th>age</th>
+            <th>skill</th>
+            <th>nameskill</th>
+            <th>profil</th>
+        </tr>
+    {% for athlete in latest_Athlete_list %}
+        <tr>
+        <td>{{ athlete.firstname }}</td>
+        <td><a href="/task/{{ athlete.lastname }}/">{{ athlete.lastename }}</a></td>
+            <td>{{ athlete.phonenumber }}</td>
+            <td>{{ athlete.namesport }}</td>
+            <td>{{ athlete.birth_data }}</td>
+            <td><a href="/task/{{athlete.visit_first_data}}/">{{ athlete.visit_first_date }}</a></td>
+            <td>{{ athlete.male }}</td>
+            <td>{{ athlete.famale }}</td>
+            <td>{{ athlete.age }}</td>
+            <td>{{ athlete.skill }}</td>
+            <td>{{ athlete.name_skill }}</td>
+            <td>{{ athlete.profil }}</td>
+
+        </tr>
+
+
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No task are available.</p>
+{% endif %}
+
+
+</body>
+</html>
