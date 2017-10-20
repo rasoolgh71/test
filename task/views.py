@@ -11,8 +11,9 @@ class IndexView(generic.ListView):
     template_name = 'task/index.html'
     context_object_name = 'latest_Athlete_list'
     def get_queryset(self):
-        return  Athlete.objects.order_by('-firstname')[:10]
-        #return  Athlete.objects.filter('-firstname').order_by('-firstname')
+        return  Athlete.objects.order_by('firstname')[:10]
+
+        #return  Athlete.objects.filter('firstname').order_by('firstname')
     #latest_Athlete_list = Athlete.objects.order_by('-lastename')[:5]
     #latest_Athlete_list = Athlete.objects.order_by('-phonenumber')[:5]
     #latest_Athlete_list = Athlete.objects.order_by('-namesport')[:5]
