@@ -47,7 +47,10 @@ class ResultsView(generic.DetailView):
 '''def results(request, question_id):
     question = get_object_or_404(Athlete, pk=firtname)
     return render(request, 'task/detail.html', {'question': question})'''
-
+def athlete(request):
+        return render(request,'task/create_athlete.html')
+def boot(request):
+    return render(request,'task/boot.html')
 
 def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
