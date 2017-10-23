@@ -20,7 +20,7 @@ class Athlete(models.Model):
     famale = models.BooleanField(verbose_name="fmale")
     age = models.IntegerField(verbose_name="age", default=0)
     skill= models.ForeignKey('Skill')
-    name_skill = models.CharField(max_length=50,verbose_name="name skill")
+    name_skill = models.CharField(max_length=50,verbose_name="name skill",null=True)
     profil = models.CharField(max_length=300,verbose_name="profil",null=True)
     def __str__(self):
         return self.lastename
