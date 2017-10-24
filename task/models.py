@@ -14,16 +14,21 @@ class Athlete(models.Model):
     lastename = models.CharField(max_length=30, verbose_name="lastname")
     phonenumber = models.CharField(max_length=50, verbose_name="phone number")
     namesport = models.ForeignKey('Sport')
-    birth_data = models.DateTimeField(verbose_name="date of birthday", null=True,default=None,blank=True)
-    visit_first_date = models.DateTimeField(verbose_name=" visit first date",null=True,default=None,blank=True)
-    male = models.BooleanField(verbose_name="male")
-    famale = models.BooleanField(verbose_name="fmale")
+    birth_data = models.CharField(blank=True,null=True,max_length=20)
+    visit_first_date = models.CharField(blank=True,null=True,max_length=20)
+    male = models.CharField(verbose_name="male",max_length=20)
+    famale = models.CharField(verbose_name="fmale",max_length=20)
     age = models.IntegerField(verbose_name="age", default=0)
     skill= models.ForeignKey('Skill')
     name_skill = models.CharField(max_length=50,verbose_name="name skill",null=True)
     profil = models.CharField(max_length=300,verbose_name="profil",null=True)
     def __str__(self):
         return self.lastename
+
+class Post(models.Model):
+    firstname = models.CharField(max_length=30, verbose_name="firsname")
+    lastename = models.CharField(max_length=30, verbose_name="lastname")
+
 @python_2_unicode_compatible
 class Skill(models.Model):
     skill_level = models.CharField(max_length=50,verbose_name="skill level")

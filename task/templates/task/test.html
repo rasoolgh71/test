@@ -3,18 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        {% block title_html %}{% endblock %}
+        show user
     </title>
 </head>
 <body>
-<span>
     <h1>hi rasool</h1>
-    <h1>
-    Tasks Manager - {% block h1 %}{% endblock %}
-    </h1>
-    <article>
-    {% block article_content %}content{% endblock %}
-    </article>
+    <h2><a href="index">show table</a></h2>
+{% if athlete_list %}
+
+     <table  border = "0"  class="table">
+
+        <tr>
+         <th>firstname</th>
+        <th>lastname</th>
+        </tr>
+   {% for athlete in athlete_list %}
+         <tr>
+           <td>{{ athlete.firstname }}</td>
+          <td><a href="/task/{{ athlete.lastname }}/">{{ athlete.lastename }}</a></td>
+         </tr>
+   {% endfor %}
+     </table>
+
+{% endif %}
 
 </body>
 </html>

@@ -13,17 +13,20 @@ urlpatterns= [
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]'''
 urlpatterns = [
-    #url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'athlete$', views.add, name='create_athlete'),
+    url(r'index$', views.IndexView.as_view(), name='index'),
+    url(r'test$', views.Testview.as_view(), name='test'),
+    url(r'addnew$', views.add, name='addnew'),
+    url(r'delete', views.delete_item, name='delete'),
+    url(r'update', views.update_item, name='update'),
     url(r'boot$', views.boot1, name='boot'),
     url(r'test$', views.test, name='test'),
     url(r'main$', views.main, name='main'),
     url(r'show$', views.show, name='show'),
-url(r'index$', views.index, name='index'),
+    #url(r'index$', views.index, name='index'),
 
     url(r'$', views.home, name='home'),
 
-    url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
-    url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
+    #url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
+    #url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]

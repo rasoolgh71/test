@@ -21,14 +21,31 @@
 
 </head>
 <body>
-<h1>
+<h2>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="test">lastname athlete</a>
+</h2>
+
 Create athlete
-    <form action="/task/add/" method="post">
+    <form method="post">
         <table>
        {% csrf_token %}
        {{ form.as_table }}
             </table>
-        <input type="submit" class="btn btn-primary">
+        <input type="submit" class="class="btn btn-success">
+
+
     </form>
+{% if messages %}
+    <div class="col-lg-3 color03">
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
 </body>
 </html>

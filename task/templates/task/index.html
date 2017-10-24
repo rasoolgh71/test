@@ -5,14 +5,9 @@
     <title>show table</title>
 </head>
 <body>
-
-<form action="" method="get">
-    <input name="nam"><input type="submit">
-
-</form>
 {% if latest_Athlete_list %}
 
-    <table border = "0"  class="table">
+    <table  border = "0"  class="table">
 
         <tr>
         <th>firsname </th>
@@ -27,9 +22,11 @@
             <th>skill</th>
             <th>nameskill</th>
             <th>profil</th>
+            <th>delete</th>
+            <th>update</th>
         </tr>
     {% for athlete in latest_Athlete_list %}
-        <tr>
+        <tr lass="datarow">
         <td>{{ athlete.firstname }}</td>
         <td><a href="/task/{{ athlete.lastname }}/">{{ athlete.lastename }}</a></td>
             <td>{{ athlete.phonenumber }}</td>
@@ -42,6 +39,20 @@
             <td>{{ athlete.skill }}</td>
             <td>{{ athlete.name_skill }}</td>
             <td>{{ athlete.profil }}</td>
+            <td>
+                <form action="delete" method="post">
+		           {% csrf_token %}
+				<input type="hidden" name="item_id" value="{{athlete.id}}" />
+			       <input type="submit" value="delete item">
+			</form>
+            </td>
+            <td>
+                <form action="update" method="post">
+		           {% csrf_token %}
+				<input type="hidden" name="item_id" value="{{athlete.id}}" />
+			       <input type="submit" value="update">
+			</form>
+            </td>
 
         </tr>
 
@@ -53,15 +64,11 @@
 {% endif %}
 <style>
     table tr:nth-child(even){
-    background:#f1f1f1;
+    background:yellow;
     }
     table tr:nth-child(odd){
-    background:green;
+    background:red;
     }
 </style>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-
 </body>
 </html>
