@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>register</title>
+    <title>get data</title>
     <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
 <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
 
@@ -18,34 +18,17 @@
 <script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
 <script type="text/javascript" src="/static/admin/js/calendar.js"></script>
 <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
-
 </head>
 <body>
-<h2>
 
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="test">lastname athlete</a>
-</h2>
-
-Create athlete
-    <form method="post" action="addnew">
+ <form method="post" action="" >
         <table>
-       {% csrf_token %}
-       {{ form.as_table }}
-            </table>
-        <input type="submit" class="btn btn-success">
-
+         {% csrf_token %}
+            {{form.as_table}}
+        </table>
+        <input type="submit" value="update">
 
     </form>
-{% if messages %}
-    <div class="col-lg-3 color03">
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
 
 </body>
 </html>

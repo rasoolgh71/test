@@ -1,4 +1,7 @@
 from django.conf.urls import url
+from django.views.generic import UpdateView
+from .models import Athlete
+#from .views.cbv.UpdateView import Task_update_time
 from . import views
 app_name = 'task'
 '''
@@ -17,11 +20,14 @@ urlpatterns = [
     url(r'test$', views.Testview.as_view(), name='test'),
     url(r'addnew$', views.add, name='addnew'),
     url(r'delete', views.delete_item, name='delete'),
-    url(r'update', views.update_item, name='update'),
+    #url(r'^update/(?P<item_id>[0-9]{2})/$', views.update_item,name="item_id"),
+    url(r'^update/(?P<pk>\d+)$', views.server_update, name='athlete_edit'),
     url(r'boot$', views.boot1, name='boot'),
+    #url(r'update$', views.upadte, name='update'),
     url(r'test$', views.test, name='test'),
     url(r'main$', views.main, name='main'),
     url(r'show$', views.show, name='show'),
+    url(r'athlete$', views.athlete, name='athlete'),
     #url(r'index$', views.index, name='index'),
 
     url(r'$', views.home, name='home'),

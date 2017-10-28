@@ -5,7 +5,15 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Athlete,Sport,Skill
 
-class form_athlete(forms.Form):
+class form_athlete(forms.ModelForm):
+    class Meta:
+        model=Athlete
+        #model=Sport
+        #model=Skill
+        fields = ['firstname', 'lastename', 'phonenumber','birth_data', 'visit_first_date',
+                  'male', 'famale', 'age', 'name_skill', 'profil']
+        #fields = ['firstname', 'lastename', 'phonenumber', ' namesport', 'birth_data', ' visit_first_date',
+                  #                  # 'male','famale','age',' skill','name_skill','profil']
     firstname = forms.CharField(max_length=30, label="firsname")
     lastename = forms.CharField(max_length=30, label="lastname",required=False)
     phonenumber = forms.CharField(max_length=50, label="phone number",required=False)
@@ -20,7 +28,3 @@ class form_athlete(forms.Form):
     skill = forms.ModelChoiceField(label="Skill",queryset=Skill.objects.all())
     name_skill = forms.CharField(max_length=50, label="name skill",required=False)
     profil = forms.CharField(max_length=300, label="profil",required=False)
-class InventoryForm(ModelForm):
-    class Meta:
-        model =Athlete
-        fields = '__all__'

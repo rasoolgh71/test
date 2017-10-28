@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 # Create your models here.
 import datetime
 from django.utils import timezone
@@ -24,6 +25,9 @@ class Athlete(models.Model):
     profil = models.CharField(max_length=300,verbose_name="profil",null=True)
     def __str__(self):
         return self.lastename
+
+    def get_absolute_url(self):
+        return reverse('athlete_edit', kwargs={'pk': self.pk})
 
 class Post(models.Model):
     firstname = models.CharField(max_length=30, verbose_name="firsname")
