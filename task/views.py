@@ -12,11 +12,15 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 #from django.core.urlresolvers import reverse_lazy
 from django.forms import ModelForm
+
+
 class IndexView(generic.ListView):
     template_name = 'task/index.html'
     context_object_name = 'latest_Athlete_list'
     def get_queryset(self):
         return  Athlete.objects.order_by('firstname')[:100]
+        #server = Athlete.objects.filter(id=pk)
+
 # class Developer_detail(DeleteView):
 #     model = Athlete
 #     template_name = 'task/index.html'
@@ -24,11 +28,38 @@ class IndexView(generic.ListView):
 #         context=super(Developer_detail,self).get_context_data(**kwargs)
 #         task_dev=Athlete.objects.filter(0)
 
-class Testview(generic.ListView):
+
+def Testview(request):
     template_name = 'task/test.html'
-    context_object_name = 'athlete_list'
-    def get_queryset(self):
-        return Athlete.objects.order_by('firstname')[:200]
+    data = Athlete.objects.order_by('firstname')[:100]
+    if request.method == 'GET' and request.GET.get("types"):
+        types=request.GET.get("types")
+        val=request.GET.get("val")
+
+        if(types =="namesport" and val==val):
+            sport=Sport.objects.values_list('id').filter(name_sport=val)
+            data=Athlete.objects.filter(namesport=sport)
+            #return HttpResponse(data)
+        elif(types == "age" and val==val):
+             data = Athlete.objects.filter(age=val)
+        elif (types =="skill"  and val == val):
+             skill = Skill.objects.values_list('id').filter(skill_level=val)
+             data = Athlete.objects.filter(skill=skill)
+        elif (types =="visit_first_date" and val ==val):
+             data = Athlete.objects.filter(visit_first_date=val)
+
+
+    return render(request,template_name,context={"data":data})
+
+
+        #return Athlete.objects.values('firstname', 'lastename')
+        #return Athlete.objects.values_list('firstname')
+        #return Athlete.objects.filter(age="3").order_by('firstname')
+        #ret=Athlete.objects.exclude(firsname='rasool')
+        #return Athlete.objects.filter(age="3"  )
+        #return ret
+
+
 
 
 def athlete(request):

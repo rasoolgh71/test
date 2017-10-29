@@ -42,7 +42,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'task.apps.TaskConfig',
     #'django_admin_bootstrapped.bootstrap3'
+    #'reporting',
     'django.contrib.admin',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

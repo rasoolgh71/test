@@ -9,18 +9,57 @@
 <body>
     <h1>hi rasool</h1>
     <h2><a href="index">show table</a></h2>
-{% if athlete_list %}
+    <h3>reporting</h3>
+{% if data %}
+    <form method="get">
+     <select name="types">
+      <option value="visit_first_date">visit first data</option>
+      <option value="namesport">namesport</option>
+      <option value="age">age</option>
+      <option value="skill">skill</option>
+    </select>
+    <input type="text" name="val" id="text">
+    <input type="submit" value="filter">
+</form>
 
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
      <table  border = "0"  class="table">
 
         <tr>
          <th>firstname</th>
         <th>lastname</th>
+             <th>phonenumber
+            <th>namesport</th>
+            <th>birth_data</th>
+            <th>visit_first_date</th>
+            <th>male</th>
+            <th>famel</th>
+            <th>age</th>
+            <th>skill</th>
+            <th>nameskill</th>
+            <th>profil</th>
         </tr>
-   {% for athlete in athlete_list %}
+   {% for athlete in data %}
          <tr>
            <td>{{ athlete.firstname }}</td>
           <td><a href="/task/{{ athlete.lastname }}/">{{ athlete.lastename }}</a></td>
+              <td>{{ athlete.phonenumber }}</td>
+            <td>{{ athlete.namesport }}</td>
+            <td>{{ athlete.birth_data }}</td>
+            <td><a href="/task/{{athlete.visit_first_data}}/">{{ athlete.visit_first_date }}</a></td>
+            <td>{{ athlete.male }}</td>
+            <td>{{ athlete.famale }}</td>
+            <td>{{ athlete.age }}</td>
+            <td>{{ athlete.skill }}</td>
+            <td>{{ athlete.name_skill }}</td>
+            <td>{{ athlete.profil }}</td>
          </tr>
    {% endfor %}
      </table>
