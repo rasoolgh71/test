@@ -10,25 +10,22 @@ from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-#from django.core.urlresolvers import reverse_lazy
 from django.forms import ModelForm
+from django.contrib.auth import authenticate, login, logout
+from django.conf import settings
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 
 class IndexView(generic.ListView):
     template_name = 'task/index.html'
     context_object_name = 'latest_Athlete_list'
+
     def get_queryset(self):
         return  Athlete.objects.order_by('firstname')[:100]
-        #server = Athlete.objects.filter(id=pk)
+#**************************************************************************
 
-# class Developer_detail(DeleteView):
-#     model = Athlete
-#     template_name = 'task/index.html'
-#     def get_context_data(self, **kwargs):
-#         context=super(Developer_detail,self).get_context_data(**kwargs)
-#         task_dev=Athlete.objects.filter(0)
-
-
+@login_required(login_url='/admin/login/')
 def Testview(request):
     template_name = 'task/test.html'
     data = Athlete.objects.order_by('firstname')[:100]
@@ -50,23 +47,35 @@ def Testview(request):
 
 
     return render(request,template_name,context={"data":data})
+#***************************************************************************************
 
 
-        #return Athlete.objects.values('firstname', 'lastename')
-        #return Athlete.objects.values_list('firstname')
-        #return Athlete.objects.filter(age="3").order_by('firstname')
-        #ret=Athlete.objects.exclude(firsname='rasool')
-        #return Athlete.objects.filter(age="3"  )
-        #return ret
+#*******************************************************************
 
 
-
-
+@login_required(login_url='/admin/login/')
 def athlete(request):
+    #username = request.POST['username']
+    #password = request.POST['password']
+    #user = authenticate(request, username=username, password=password)
+    #user = authenticate(request, password=password)
+    #if not request.user.is_authenticated:
+    #return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+    #if not request.user.is_authenticated:
+        #return redirect('/login/?next=%s' % request.path)
+    #else:
+        #return HttpResponse("not")
+
+        #return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
     form=form_athlete()
     return render(request,'task/create_athlete.html',{'form':form})
+@login_required(login_url='/accounts/login/')
+def my_view(request):
+    pass
+#**********************************************************************************
 def boot1(request):
     return render(request, 'task/boot.html')
+#@login_required
 def home(request):
     return render(request, 'task/home.html')
 def test(request):
@@ -79,7 +88,8 @@ def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
 def index(request):
     return render(request,'task/index.html')
-
+#*******************************************************************
+@login_required(login_url='/admin/login/')
 def add(request):
     if request.method == 'POST':
         form=form_athlete(request.POST)
@@ -131,6 +141,7 @@ def add(request):
         form = form_athlete()
 
     return render(request, 'task/create_athlete.html', {'form': form})
+@login_required(login_url='/admin/login/')
 def delete_item(request):
     if request.method == "POST":
         form =form_athlete(request.POST)
@@ -141,28 +152,7 @@ def delete_item(request):
         return render(request, 'index.html', {
             'form': form, 'inventory': inventory})
     return HttpResponseRedirect("/form_url/?success=1")
-# class Form_task_time(form_athlete):
-#     class Meta:
-#         model =Athlete
-#         fields = ['firstname','lastename','phonenumber',' namesport','birth_data',' visit_first_date',
-#                   'male','famale','age',' skill','name_skill','profil']
-# class UpdateViewCustom(UpdateView):
-#     template_name = 'task/update_athlete.html'
-#     url_name = ""
-# #     #form_class = Form_task_time
-# #     #success_url = 'public_empty'
-#     def get_success_url(self):
-#         return reverse(self.success_url)
-#     def get_context_data(self, **kwargs):
-#         context=super(UpdateViewCustom,self).get_context_data(self,**kwargs)
-#         model_name = self.model._meta.verbose_name.title()
-#         context['model_name'] = model_name
-#         context['url_name'] = self.url_name
-#         return context
-#class form(forms.ModelForm):
-#   class Meta:
-        #model = User
- #      fields = [...] 'lastename', 'phonenumber']
+#***********************************************************************
 def server_update(request, pk):
     #model=Athlete
         alert = "";
@@ -174,47 +164,7 @@ def server_update(request, pk):
         return render(request, 'task/update_athlete.html', {'form': form})
 
 
-    #server = Athlete.objects.get(id=pk)
-    #server = request.session.get(id=pk)
-    #form = form_athlete(request.POST or None)
-    #server = Athlete.objects.filter(id=pk).update()
-    #if form.is_valid():
-     #   form.save()
-    #data = request.POST.get('firstname')
-    #print(data)
-    #server = get_object_or_404(Athlete, id=pk)
-    #instance = get_object_or_404(Athlete, id=pk)
-    #form = form_athlete(request.POST or None, instance=instance)
-    #if form.is_valid():
-     #   form.save()
-    #
-    #form = form_athlete(initial={'firstname':server.firstname,'lastename':server.lastename,'phonenumber':server.phonenumber,
-     #                            'namesport':server.namesport, 'birth_data':server.birth_data,
-      #                           ' visit_first_date':server. visit_first_date,
-       #                          'male':server.male,'famale':server.famale,'age':server.age,'skill':server.skill,
-        #                         'name_skill':server.name_skill,'profil':server.profil
-         #                        })
-    #f = form(request)
-    #new_article = f.save()
-    #server = Athlete.objects.filter(id=pk).update()
 
-    #p.__dict__.update(form)
-    #p.save()
-    #form_athlete.save()
-    #eturn redirect(object)
-    #j=form.save()
-    #form.save()
-    #server=Athlete.objects.filter(id=pk).update({"firstname":form.firstname})
-    #form = form_athlete(server)
-
-    #if request.method == "POST":
-     #   form = form_athlete(request.POST)
-      #  if form.is_valid():
-       #     new_athlete =form
-            # print(firstname)
-        #    new_athlete.save()
-            #form.save()
-    #return redirect(server)
 
 
 

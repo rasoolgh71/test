@@ -20,10 +20,7 @@
     <body>
     {% block content %}
      {% endblock %}
-    <div id="sidebar">
-        <h1>my blog</h1>
-        <h2>sidebar</h2>
-    </div>
+
 
 
     <div id="header">
@@ -36,6 +33,15 @@
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
+            </li>
+             <li class="nav-item active">
+              <a class="nav-link" href="/admin/login/?next={{request.path}}">login <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="create_athlete">athlete <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="test">reporting <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>

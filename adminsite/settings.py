@@ -33,7 +33,7 @@ SECRET_KEY = 'o=0@ac1b8bwdk2a928ojdcdbie43rck5j_1yz)6w(+9)hg4j0%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+#LOGIN_REDIRECT_URL = '/profiles/home'
 ALLOWED_HOSTS = []
 
 
@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     #'django_admin_bootstrapped.bootstrap3'
     #'reporting',
     'django.contrib.admin',
-
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

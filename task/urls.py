@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from django.views.generic import UpdateView
 from requests import request
+from django.contrib.auth import views as auth_views
+
 
 from .models import Athlete
 #from .views.cbv.UpdateView import Task_update_time
@@ -21,16 +23,16 @@ urlpatterns = [
     url(r'index$', views.IndexView.as_view(), name='index'),
     url(r'test$', views.Testview, name='test'),
     url(r'addnew$', views.add, name='addnew'),
-    #url(r'addnew(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/(?P<slug>[-\w]+)$',
-    #views.add, name='addnew'),
     url(r'delete', views.delete_item, name='delete'),
-    #url(r'^update/(?P<item_id>[0-9]{2})/$', views.update_item,name="item_id"),
     url(r'^update/(?P<pk>\d+)$', views.server_update, name='athlete_edit'),
     url(r'boot$', views.boot1, name='boot'),
-    #url(r'update$', views.upadte, name='update'),
     url(r'test$', views.test, name='test'),
     url(r'main$', views.main, name='main'),
     url(r'show$', views.show, name='show'),
+    #url(r'^login/$', auth_views.login, {'template_name': 'core/login.html'}, name='login'),
+    #url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
+
+    #url(r'^accounts/login/$', auth_views.LoginView.as_view()),
     url(r'athlete$', views.athlete, name='athlete'),
     #url(r'index$', views.index, name='index'),
 
