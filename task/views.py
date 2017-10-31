@@ -15,6 +15,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 class IndexView(generic.ListView):
@@ -55,7 +56,18 @@ def Testview(request):
 
 @login_required(login_url='/admin/login/')
 def athlete(request):
+    request.user.is_authenticated
     #username = request.POST['username']
+    #id=request.POST.get(id)
+
+    #id=User.objects.get(id=id)
+    #User.objects.get(id=request.POST['id'])
+    #user_id = int(request.POST['id'])
+    #user= User.objects.get(id=user_id)
+    #author_id = request.user.pk
+    #return HttpResponse(id_admin)
+    #user = get_object_or_404(User, pk=user_id)
+    #id=User.objects.get(id=id)
     #password = request.POST['password']
     #user = authenticate(request, username=username, password=password)
     #user = authenticate(request, password=password)
