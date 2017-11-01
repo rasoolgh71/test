@@ -2,7 +2,7 @@
 # Create your views here.
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from .models import Athlete, Sport, Skill
+from .models import Athlete, Sport, Skill,pageview
 from .forms import form_athlete
 from django.template import loader
 from django.shortcuts import get_object_or_404, render
@@ -16,6 +16,8 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
+from django.shortcuts import render
 
 
 class IndexView(generic.ListView):
@@ -25,6 +27,8 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return  Athlete.objects.order_by('firstname')[:100]
 #**************************************************************************
+
+
 
 @login_required(login_url='/admin/login/')
 def Testview(request):
@@ -87,11 +91,33 @@ def my_view(request):
 #**********************************************************************************
 def boot1(request):
     return render(request, 'task/boot.html')
-#@login_required
+#*******************************************************
+@login_required(login_url='/admin/login/')
 def home(request):
-    return render(request, 'task/home.html')
+    contact_list = Athlete.objects.all()
+    paginator = Paginator(contact_list,3)
+    page = request.GET.get('page',1)
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        contacts = paginator.page(1)
+    except EmptyPage:
+        contacts = paginator.page(paginator.num_pages)
+    if(pageview.objects.count()<=0):
+        x=pageview.objects.create()
+        x.save()
+    else:
+        x=pageview.objects.all()[0]
+        x.hits=x.hits+1
+        x.save()
+
+
+    return render(request, 'task/home.html', context={'page':page ,'contacts': contacts,'page':x.hits})
+#******************************************************************************
 def test(request):
     return render(request, 'task/test.html')
+def pagination(request):
+    return render(request, 'task/pagination.html')
 def main(request):
     return render(request,'task/main.html',context=None)
 def show(request):
@@ -100,6 +126,8 @@ def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
 def index(request):
     return render(request,'task/index.html')
+def jquery(request):
+    return render(request,'task/jquery.html')
 #*******************************************************************
 @login_required(login_url='/admin/login/')
 def add(request):

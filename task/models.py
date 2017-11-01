@@ -38,3 +38,5 @@ class Skill(models.Model):
     skill_level = models.CharField(max_length=50,verbose_name="skill level")
     def __str__(self):
         return self.skill_level
+class pageview(models.Model):
+    hits=models.IntegerField(default=0)

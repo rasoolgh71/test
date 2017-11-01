@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static 'jquery-3.2.1.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+          $(".btn1").click(function(){
+            $("#div1").fadeIn(5000);
+
+
+          });
+          $(".btn").click(function(){
+            $("#div1").fadeOut(5000);
+          });
+          $(".btn2").click(function(){
+            $("#div3").fadeTo(5000,0.50);
+          })
+          $(".animate").click(function(){
+            $(".left").animate({
+             left: '250px',
+             opacity: '0.5',
+             height: '+=150px',
+             width: '+=150px'
+            });
+          });
+
+        });
+    </script>
+</head>
+<body>
+<p>hi rasool</p>
+<button class="btn1">click</button>
+<button class="btn"> toggle</button>
+<button class="btn2">fadeto</button>
+<button class="animate"> animate</button>
+<div id="div1" style="width:80px;height:80px;display:none;background-color:red;"></div><br>
+<div id="div2" style="width:80px;height:80px;display:none;background-color:red;"></div><br>
+<div id="div3" style="width:80px;height:80px;display:none;background-color:red;"></div>
+<button class="left">left</button>
+
+</body>
+</html>

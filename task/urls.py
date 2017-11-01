@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'test$', views.test, name='test'),
     url(r'main$', views.main, name='main'),
     url(r'show$', views.show, name='show'),
+    url(r'jquery$', views.jquery, name='jquery'),
     #url(r'^login/$', auth_views.login, {'template_name': 'core/login.html'}, name='login'),
     #url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 

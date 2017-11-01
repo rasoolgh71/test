@@ -48,6 +48,25 @@ Create athlete
         </ul>
     </div>
 {% endif %}
+{% for contact in contacts %}
+  {{contact.full_name|upper}}</br>
+{% endfor %}
+
+<div calss="pagination">
+    <span class="step-links">
+        {% if contacts.has_previous %}
+           <a href="?page={{ contacts.previous_page_number }}">previous"</a>
+        {% endif %}
+
+        <span class="current">
+            page{{contacts.number}} of {{contacts.paginator.num_pages}}.
+        </span>
+
+        {% if contacts.has_next %}
+           <a href="?page={{ contacts.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 
 </body>
 </html>
