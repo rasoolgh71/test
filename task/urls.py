@@ -35,7 +35,7 @@ urlpatterns = [
     #url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
     #url(r'^accounts/login/$', auth_views.LoginView.as_view()),
-    url(r'athlete$', views.athlete, name='athlete'),
+    #url(r'athlete$', views.athlete, name='athlete'),
     #url(r'index$', views.index, name='index'),
 
     url(r'$', views.home, name='home'),

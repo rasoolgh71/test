@@ -19,6 +19,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.core.exceptions import ValidationError
 import logging
+import datetime
 
 
 class IndexView(generic.ListView):
@@ -113,6 +114,9 @@ def jquery(request):
 #*******************************************************************
 @login_required(login_url='/admin/login/')
 def add(request):
+    #return HttpResponse(request.user.username)
+
+
     if request.method == 'POST':
         form=form_athlete(request.POST)
         if form.is_valid():
@@ -157,16 +161,34 @@ def add(request):
                                 male=male,famale=famale,age=age,skill=skill,name_skill=name_skill,profil=profil)
             #print(firstname)
             new_athlete.save()
+
+            file=open('log.txt','a')
+
+            ur=request.user.username
+            #return  HttpResponse(ur)
+            str="user:"+ur + "\t insert in system :"+firstname
+            time=datetime.datetime.now()
+            log=time.strftime( "%Y-%m-%d %H:%M:%S\t")+str
+            file.write(log)
+            file.write("\n--------------------------------------------------------------------------------\n")
+            file.close()
+            messages.success(request, "فرم با موفقیت ذخیره شد")
+
             #'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
             #messages.success(request, 'Form submission successful')
-            messages.success(request, "فرم با موفقیت ذخیره شد")
-            logger = logging.getLogger('name')
-            hdlr = logging.FileHandler('task.txt')
-            formatter = logging.Formatter('%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s')
-            hdlr.setFormatter(formatter)
-            logger.addHandler(hdlr)
-            logger.setLevel(logging.INFO)
-            logger.info('insert1 in system')
+
+            #logger = logging.getLogger('name')
+            #hdlr = logging.FileHandler('task.txt')
+            #formatter = logging.Formatter("%(asctime)s'%(levelname)s %(user.username)s %(module)s %(process)d %(thread)d %(message)s",
+                                        #  "%Y-%m-%d %H:%M:%S")
+            #formatter = logging.Formatter('%(asctime)s %(hostname)s' 'YOUR_APP: %(message)s',datefmt='%b %d %H:%M:%S')
+          #  hdlr.setFormatter(formatter)
+            #logger.addHandler(hdlr)
+           # logger.setLevel(logging.INFO)
+            #logger.info('insert1 in system')
+
+
+            #syslog.setFormatter(formatter)
             #logger=logging.getLogger('rasool')
 
             #logging.info("%s instance %s (pk %s) updated" )
@@ -180,19 +202,22 @@ def add(request):
     return render(request, 'task/create_athlete.html', {'form': form})
 @login_required(login_url='/admin/login/')
 def delete_item(request):
+    #return HttpResponse("ssffsf")
     if request.method == "POST":
         form =form_athlete(request.POST)
         inventory=Athlete.objects.all()
         item_id = int(request.POST.get('item_id'))
         item = Athlete.objects.get(id=item_id)
         item.delete()
-        logger = logging.getLogger('name')
-        hdlr = logging.FileHandler('task.txt')
-        formatter = logging.Formatter('%(asctime)s [%(name)s:%(lineno)s]  %(message)s')
-        hdlr.setFormatter(formatter)
-        logger.addHandler(hdlr)
-        logger.setLevel(logging.INFO)
-        logger.info('delete in system')
+        file = open('log.txt', 'a')
+        ur = request.user.username
+        # return  HttpResponse(ur)
+        str = "user:" + ur + "\t delete in system "
+        time = datetime.datetime.now()
+        log = time.strftime("%Y-%m-%d %H:%M:%S\t") + str
+        file.write(log)
+        file.write("\n--------------------------------------------------------------------------------\n")
+        file.close()
         return render(request, 'task/index.html', {
             'form': form, 'inventory': inventory})
 
@@ -204,13 +229,15 @@ def server_update(request, pk):
         instance = get_object_or_404(Athlete, id=pk)
         form = form_athlete(request.POST or None, instance=instance)
         if request.method == 'POST':
-            logger = logging.getLogger('name')
-            hdlr = logging.FileHandler('task.txt')
-            formatter = logging.Formatter('%(asctime)s [%(name)s:%(lineno)s]  %(message)s')
-            hdlr.setFormatter(formatter)
-            logger.addHandler(hdlr)
-            logger.setLevel(logging.INFO)
-            logger.info('update2 in system')
+            file = open('log.txt', 'a')
+            ur = request.user.username
+            # return  HttpResponse(ur)
+            str = "user:" + ur + "\t update in system "
+            time = datetime.datetime.now()
+            log = time.strftime("%Y-%m-%d %H:%M:%S\t") + str
+            file.write(log)
+            file.write("\n--------------------------------------------------------------------------------\n")
+            file.close()
             form.save()
 
 
