@@ -17,7 +17,8 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
-from django.shortcuts import render
+from django.core.exceptions import ValidationError
+import logging
 
 
 class IndexView(generic.ListView):
@@ -31,6 +32,7 @@ class IndexView(generic.ListView):
 
 
 @login_required(login_url='/admin/login/')
+#reporting
 def Testview(request):
     template_name = 'task/test.html'
     data = Athlete.objects.order_by('firstname')[:100]
@@ -53,6 +55,8 @@ def Testview(request):
 
     return render(request,template_name,context={"data":data})
 #***************************************************************************************
+def bootstrap(request):
+    return render(request,'task/bootstrap.html')
 
 
 #*******************************************************************
@@ -61,28 +65,6 @@ def Testview(request):
 @login_required(login_url='/admin/login/')
 def athlete(request):
     request.user.is_authenticated
-    #username = request.POST['username']
-    #id=request.POST.get(id)
-
-    #id=User.objects.get(id=id)
-    #User.objects.get(id=request.POST['id'])
-    #user_id = int(request.POST['id'])
-    #user= User.objects.get(id=user_id)
-    #author_id = request.user.pk
-    #return HttpResponse(id_admin)
-    #user = get_object_or_404(User, pk=user_id)
-    #id=User.objects.get(id=id)
-    #password = request.POST['password']
-    #user = authenticate(request, username=username, password=password)
-    #user = authenticate(request, password=password)
-    #if not request.user.is_authenticated:
-    #return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
-    #if not request.user.is_authenticated:
-        #return redirect('/login/?next=%s' % request.path)
-    #else:
-        #return HttpResponse("not")
-
-        #return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
     form=form_athlete()
     return render(request,'task/create_athlete.html',{'form':form})
 @login_required(login_url='/accounts/login/')
@@ -92,7 +74,7 @@ def my_view(request):
 def boot1(request):
     return render(request, 'task/boot.html')
 #*******************************************************
-@login_required(login_url='/admin/login/')
+#@login_required(login_url='/admin/login/')
 def home(request):
     contact_list = Athlete.objects.all()
     paginator = Paginator(contact_list,3)
@@ -141,6 +123,7 @@ def add(request):
             #Athlete(firstname=firstname, lastename=lastename).save()
 
             phonenumber =request.POST.get('phonenumber','')
+            #phonenumber = self.cleaned_data['phonenumber']
             #HttpResponse(phonenumber)
             sport_id=request.POST.get('namesport','')
             namesport =Sport.objects.get(id=sport_id)
@@ -153,6 +136,8 @@ def add(request):
             skill=Skill.objects.get(id=skill_id)
             name_skill=request.POST.get('name_skill','')
             profil=request.POST.get('profil','')
+
+
 
             #firstname=form.cleaned_data['firstname']
             '''
@@ -172,8 +157,20 @@ def add(request):
                                 male=male,famale=famale,age=age,skill=skill,name_skill=name_skill,profil=profil)
             #print(firstname)
             new_athlete.save()
+            #'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
             #messages.success(request, 'Form submission successful')
             messages.success(request, "فرم با موفقیت ذخیره شد")
+            logger = logging.getLogger('name')
+            hdlr = logging.FileHandler('task.txt')
+            formatter = logging.Formatter('%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s')
+            hdlr.setFormatter(formatter)
+            logger.addHandler(hdlr)
+            logger.setLevel(logging.INFO)
+            logger.info('insert1 in system')
+            #logger=logging.getLogger('rasool')
+
+            #logging.info("%s instance %s (pk %s) updated" )
+
            # return HttpResponse("فرم با موفقیت ذخیره شد")
         else:
             return render(request,'task/create_athlete.html', {'form': form})
@@ -189,21 +186,42 @@ def delete_item(request):
         item_id = int(request.POST.get('item_id'))
         item = Athlete.objects.get(id=item_id)
         item.delete()
-        return render(request, 'index.html', {
+        logger = logging.getLogger('name')
+        hdlr = logging.FileHandler('task.txt')
+        formatter = logging.Formatter('%(asctime)s [%(name)s:%(lineno)s]  %(message)s')
+        hdlr.setFormatter(formatter)
+        logger.addHandler(hdlr)
+        logger.setLevel(logging.INFO)
+        logger.info('delete in system')
+        return render(request, 'task/index.html', {
             'form': form, 'inventory': inventory})
-    return HttpResponseRedirect("/form_url/?success=1")
+
+    return HttpResponseRedirect("task/index.html")
 #***********************************************************************
 def server_update(request, pk):
     #model=Athlete
-        alert = "";
+        alert = "apdate is succes"
         instance = get_object_or_404(Athlete, id=pk)
         form = form_athlete(request.POST or None, instance=instance)
         if request.method == 'POST':
+            logger = logging.getLogger('name')
+            hdlr = logging.FileHandler('task.txt')
+            formatter = logging.Formatter('%(asctime)s [%(name)s:%(lineno)s]  %(message)s')
+            hdlr.setFormatter(formatter)
+            logger.addHandler(hdlr)
+            logger.setLevel(logging.INFO)
+            logger.info('update2 in system')
             form.save()
+
+
+
+
         #return render(request, 'update.html', {'form': form, 'alert': alert})
-        return render(request, 'task/update_athlete.html', {'form': form})
+        return render(request, 'task/update_athlete.html', {'form': form,'alert':alert})
 
 
+
+#def logs(user_id,action):
 
 
 

@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% extends "task/boot.html" %}
+{% block content %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,8 +9,7 @@
     </title>
 </head>
 <body>
-    <h1>hi rasool</h1>
-    <h2><a href="index">show table</a></h2>
+    <h3><a href="index">show table</a></h3>
     <h3>reporting</h3>
 {% if data %}
     <form method="get">
@@ -27,9 +28,9 @@
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
+
+
+
      <table  border = "0"  class="table">
 
         <tr>
@@ -68,3 +69,4 @@
 
 </body>
 </html>
+{% endblock %}

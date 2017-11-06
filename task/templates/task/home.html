@@ -1,10 +1,24 @@
 {% extends "task/boot.html" %}
 {% block content %}
-</br>
-</Br>
-</Br>
-<a href="athlete">add athlete</a>
-<h1>home page</h1>
+      <h1>home page</h1>
+{% include "task/pagination.html" with page=contacts %}
 
-  {% include "task/pagination.html" with page=contacts %}
 {% endblock %}
+
+{% block sidebar %}
+    <div class="col-lg-4 col-md-4 sidebar-offcanvas" id="sidebar">
+       <div class="list-group">
+                 <a href="#" class="list-group-item active">Link</a>
+                 <h5 class="list-group-item">پنل کاربری</h5>
+                 <a href="#" class="list-group-item">Link</a>
+                 <a href="#" class="list-group-item">Link</a>
+                 <a href="#" class="list-group-item">Link</a>
+                 <a href="#" class="list-group-item">Link</a>
+                 <a href="#" class="list-group-item">Link</a>
+                 <a href="#" class="list-group-item">Link</a>
+                 <a href="#" class="list-group-item">Link</a>
+                 <h5 class="list-group-item">تعداد بازدید:{{page}}</h5>
+       </div>
+    </div>
+{% endblock %}
+

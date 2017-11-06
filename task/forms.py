@@ -4,6 +4,7 @@ import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Athlete,Sport,Skill
+from django.core.exceptions import ValidationError
 
 class form_athlete(forms.ModelForm):
     class Meta:
@@ -24,3 +25,23 @@ class form_athlete(forms.ModelForm):
     skill = forms.ModelChoiceField(label="Skill",queryset=Skill.objects.all())
     name_skill = forms.CharField(max_length=50, label="name skill",required=False)
     profil = forms.CharField(max_length=300, label="profil",required=False)
+
+
+    def get_due_date(self):
+
+        diff = self.cleaned_data['birth_data'] - datetime.date.today()
+
+        if diff.days < 0:
+            raise ValidationError("Please enter valid date. Either today's date or after that.")
+
+        else:
+
+             return self.cleaned_data['birth_data']
+    def get_number(self):
+        phonenumber=self.cleaned_data['phonenumber']
+        if len(phonenumber) < 10:
+            raise forms.ValidationError("Headline must be more than 9 characters.")
+        else:
+            return phonenumber
+
+

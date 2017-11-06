@@ -1,13 +1,12 @@
-{% extends "task/boot.html" %}
 
 <!DOCTYPE html>
+{% extends "task/boot.html" %}
 {% block content %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>register</title>
-  <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
-<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
+
 
 
 <script type="text/javascript" src="/admin/jsi18n/"></script>
@@ -28,8 +27,10 @@
     &nbsp;&nbsp;&nbsp;&nbsp;
     <!--<a href="test">reporting</a>-->
 </h2>
-
-Create athlete
+<a href="task/home.html">home</a>
+ssss {{user.email}}
+username{{user.username}}
+<h1 align="center">Create athlete</h1>
     <form method="post" action="addnew">
         <table>
        {% csrf_token %}
