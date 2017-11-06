@@ -239,16 +239,9 @@ def server_update(request, pk):
             file.write("\n--------------------------------------------------------------------------------\n")
             file.close()
             form.save()
-
-
-
-
         #return render(request, 'update.html', {'form': form, 'alert': alert})
         return render(request, 'task/update_athlete.html', {'form': form,'alert':alert})
 
-
-
-#def logs(user_id,action):
 
 
 

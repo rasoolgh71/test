@@ -1,9 +1,11 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from django.core.urlresolvers import reverse
 # Create your models here.
 import datetime
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
+from django.core.validators import RegexValidator
 @python_2_unicode_compatible
 class Sport(models.Model):
     name_sport = models.CharField(max_length=50, verbose_name="name sport")
@@ -13,7 +15,8 @@ class Sport(models.Model):
 class Athlete(models.Model):
     firstname = models.CharField(max_length=30, verbose_name="firsname")
     lastename = models.CharField(max_length=30, verbose_name="lastname")
-    phonenumber = models.CharField(max_length=50, verbose_name="phone number")
+    phonenumber = models.CharField(max_length=10, verbose_name="phone number",
+                                   validators =[RegexValidator(r'\d{10}+|\d{5}([- ]*)\d{6}')])
     namesport = models.ForeignKey('Sport')
     birth_data = models.CharField(blank=True,null=True,max_length=20)
     visit_first_date = models.CharField(blank=True,null=True,max_length=20)

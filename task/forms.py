@@ -1,10 +1,12 @@
 from django import forms
 from django.forms import ModelForm
+from django.core.validators import RegexValidator
 import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Athlete,Sport,Skill
 from django.core.exceptions import ValidationError
+from django.contrib import messages
 
 class form_athlete(forms.ModelForm):
     class Meta:
@@ -13,9 +15,10 @@ class form_athlete(forms.ModelForm):
         model= Skill
         fields = ['firstname', 'lastename', 'phonenumber','namesport','birth_data', 'visit_first_date',
                   'male', 'famale', 'age','skill', 'name_skill', 'profil']
-    firstname = forms.CharField(max_length=30, label="firsname",required=False)
+    firstname = forms.CharField(max_length=30, label="firsname",required=False,validators=[RegexValidator(r'\w')])
     lastename = forms.CharField(max_length=30, label="lastname",required=False)
-    phonenumber = forms.CharField(max_length=50, label="phone number",required=False)
+    phonenumber = forms.CharField(max_length=10,min_length=10,validators = [RegexValidator(r'\d{10}')])
+    #validators = [RegexValidator(r'\d{10}+|\d{5}([- ]*)\d{6}')]
     namesport = forms.ModelChoiceField(label="Sport", queryset=Sport.objects.all())
     birth_data = forms.DateField(required=False)
     visit_first_date = forms.DateField(required=False)
