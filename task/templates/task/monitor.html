@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <script src="{% static 'jquery-3.2.1.min.js' %}"></script>
+</head>
+<body>
+<h1>monitoring</h1>
+{{d}}
+<hr>
+<h1>cpu</h1>
+<table border="1">
+            <tr>
+             <th>user</th>
+            <th>nice</th>
+            <th>system</th>
+            <th>idel</th>
+            <th>iowait</th>
+            <th>ireq</th>
+            <th>softirq</th>
+            <th>steal</th>
+            <th>guest</th>
+            <th>guest_nice</th>
+            </tr>
+<tr>
+{% for k in cpu %}
+
+
+             <td>{{k}}</td>
+
+
+
+{% endfor%}
+</tr>
+</table>
+<hr>
+
+<h3>disk</h3>
+<table border="1">
+    <th>total(G)</th>
+    <th>free(G)</th>
+    <th>use(G)</th>
+    <th>percent(%)</th>
+    <tr>
+        <td> {{total}}G</td>
+        <td>{{free}}G</td>
+        <td>{{use}}G</td>
+        <td>{{percent}}%</td>
+    </tr>
+</table>
+<hr>
+<table border="1" id="aaa">
+    <tr>
+      <th>Filesystem </th>
+      <th>Size</th>
+      <th>Used</th>
+      <th>Avail</th>
+      <th>Use%</th>
+      <th>Mounted on </th>
+    </tr>
+    <tr>
+      {% for i in disk1%}
+        {{cnt}}
+          <tr>
+              {% for n in i%}
+                 <td>{{n}}</td>
+              {%endfor%}
+         </tr>
+      {%endfor%}
+
+
+    </tr>
+</table>
+
+<style>
+    #aaa tr:nth-child(3){display:none}
+</style>
+<hr>
+<table>
+    <td>
+       <table border="1">
+            <th>namedisk</th>
+
+              {% for m in key%}
+                    <tr>
+                      <td>{{m}}</td>
+                    </tr>
+              {% endfor%}
+       </table >
+    </td>
+
+    <td>
+      <table border="1">
+
+
+            <th>read_count</th>
+            <th>write_count</th>
+            <th>read_bytes</th>
+            <th>write_bytes</th>
+            <th>read_time(ms)</th>
+            <th>write_time(ms)</th>
+            <th>read_merged_count</th>
+            <th>write_merged_count</th>
+            <th>busy_time</th>
+
+
+
+          {%for p in value%}
+          <tr>
+             {%for i in p  %}
+
+                  <td>{{i}}</td>
+
+             {% endfor %}
+         </tr>
+          {%endfor %}
+      </table>
+    </td>
+</table>
+<hr>
+<h1>network</h1>
+<table>
+  <td>
+    <table border="1">
+      <tr>
+           <th>net</th>
+
+            {%for i in keynet%}
+              <tr>
+                 <td>{{i}}</td>
+              </tr>
+            {% endfor %}
+    </table>
+  </td>
+    <td>
+     <table border="1">
+            <th>bytes_sent</th>
+            <th> bytes_recv</th>
+            <th>packets_sent</th>
+            <th>packets_recv</th>
+            <th> errin </th>
+            <th>errout</th>
+            <th>dropin</th>
+            <th>dropout</th>
+        {% for m in valuenet %}
+         <tr>
+          {% for n in m %}
+
+                <td>{{n}}</td>
+
+          {% endfor%}
+         </tr>
+        {% endfor %}
+     </table>
+  </td>
+</table>
+<style>
+    table tr:nth-child(even){
+    background:#f0f;
+    }
+    table tr:nth-child(odd){
+    background:#fff;
+    }
+</style>
+<script>
+    $(window).ready( function() {
+    var time = 5000
+    setInterval( function() {
+        time--;
+        $('#time').html(time);
+
+        if (time === 0) {
+            location.reload();
+        }
+    }, 1000 );
+});
+</script>
+</body>
+</html>

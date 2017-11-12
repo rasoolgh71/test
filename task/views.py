@@ -20,6 +20,11 @@ from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.core.exceptions import ValidationError
 import logging
 import datetime
+import psutil
+import os
+import sys
+import re
+import ast
 
 
 class IndexView(generic.ListView):
@@ -174,26 +179,6 @@ def add(request):
             file.close()
             messages.success(request, "فرم با موفقیت ذخیره شد")
 
-            #'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-            #messages.success(request, 'Form submission successful')
-
-            #logger = logging.getLogger('name')
-            #hdlr = logging.FileHandler('task.txt')
-            #formatter = logging.Formatter("%(asctime)s'%(levelname)s %(user.username)s %(module)s %(process)d %(thread)d %(message)s",
-                                        #  "%Y-%m-%d %H:%M:%S")
-            #formatter = logging.Formatter('%(asctime)s %(hostname)s' 'YOUR_APP: %(message)s',datefmt='%b %d %H:%M:%S')
-          #  hdlr.setFormatter(formatter)
-            #logger.addHandler(hdlr)
-           # logger.setLevel(logging.INFO)
-            #logger.info('insert1 in system')
-
-
-            #syslog.setFormatter(formatter)
-            #logger=logging.getLogger('rasool')
-
-            #logging.info("%s instance %s (pk %s) updated" )
-
-           # return HttpResponse("فرم با موفقیت ذخیره شد")
         else:
             return render(request,'task/create_athlete.html', {'form': form})
     else:
@@ -241,6 +226,30 @@ def server_update(request, pk):
             form.save()
         #return render(request, 'update.html', {'form': form, 'alert': alert})
         return render(request, 'task/update_athlete.html', {'form': form,'alert':alert})
+#*********************************************************************************
+def get_monitoring(request):
+    cpu = (psutil.cpu_times()) #cpu read write
+    st = os.statvfs('/')
+    free = (st.f_frsize * st.f_bavail) / 1000000000  # free
+    total = (st.f_frsize * st.f_blocks) / 1000000000  # total
+    use = ((st.f_blocks - st.f_bavail) * st.f_frsize) / 1000000000 #use disk
+    percent = (float(use) / total) * 100 # percentage disk
+    f = os.popen("df -h")
+    disk1 =(f.readlines())
+    disk1= [n.strip() for n in disk1]
+    disk1=[n.split() for n in disk1]
+    disk = (psutil.disk_io_counters(perdisk=True))  # read write disk
+    key = disk.keys()
+    value = disk.values()
+   # d = (psutil.disk_usage('key'))
+    infonet = (psutil.net_io_counters(pernic=True))
+    keynet=infonet.keys()
+    valuenet=infonet.values()
+    return render(request,'task/monitor.html',context={'disk1':disk1,'cpu': cpu,'total':total,
+    'free':free,'use':use,'percent':percent,
+    'list':list,'key':key,
+    'value':value,'keynet':keynet,'valuenet':valuenet})
+
 
 
 

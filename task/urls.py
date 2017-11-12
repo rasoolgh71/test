@@ -22,6 +22,7 @@ urlpatterns= [
 urlpatterns = [
     url(r'index$', views.IndexView.as_view(), name='index'),
     url(r'test$', views.Testview, name='test'),
+    url(r'monitor$', views.get_monitoring, name='monitor'),
     url(r'addnew$', views.add, name='addnew'),
     url(r'delete', views.delete_item, name='delete'),
     url(r'^update/(?P<pk>\d+)$', views.server_update, name='athlete_edit'),
