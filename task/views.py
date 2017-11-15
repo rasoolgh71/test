@@ -18,6 +18,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.core.exceptions import ValidationError
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache  #impprt cach redis
+import redis
 import logging
 import datetime
 import psutil
@@ -38,8 +41,8 @@ class IndexView(generic.ListView):
 
 
 @login_required(login_url='/admin/login/')
-#reporting
-def Testview(request):
+
+def Testview(request):   #reporting
     template_name = 'task/test.html'
     data = Athlete.objects.order_by('firstname')[:100]
     if request.method == 'GET' and request.GET.get("types"):
@@ -185,6 +188,7 @@ def add(request):
         form = form_athlete()
 
     return render(request, 'task/create_athlete.html', {'form': form})
+#*************************************************************************************
 @login_required(login_url='/admin/login/')
 def delete_item(request):
     #return HttpResponse("ssffsf")
@@ -246,9 +250,22 @@ def get_monitoring(request):
     keynet=infonet.keys()
     valuenet=infonet.values()
     return render(request,'task/monitor.html',context={'disk1':disk1,'cpu': cpu,'total':total,
-    'free':free,'use':use,'percent':percent,
-    'list':list,'key':key,
-    'value':value,'keynet':keynet,'valuenet':valuenet})
+        'free':free,'use':use,'percent':percent,
+        'list':list,'key':key,
+        'value':value,'keynet':keynet,'valuenet':valuenet})
+#***************************************************************************************************
+#@cache_page(60 *15)
+def is_redis(request):
+    if request.method == 'POST':
+        r = redis.StrictRedis()
+        sel=request.POST.get('select','')
+        #return HttpResponse(sel)
+        #r.setex('sel',sel)
+        r.set('sel',sel)
+
+
+
+    return render(request,'task/redis.html',context={})
 
 
 

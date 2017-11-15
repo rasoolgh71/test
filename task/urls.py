@@ -32,16 +32,9 @@ urlpatterns = [
     url(r'show$', views.show, name='show'),
     url(r'jquery$', views.jquery, name='jquery'),
     url(r'bootstarp$', views.bootstrap, name='bootstarp'),
-    #url(r'^login/$', auth_views.login, {'template_name': 'core/login.html'}, name='login'),
-    #url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
-
-    #url(r'^accounts/login/$', auth_views.LoginView.as_view()),
-    #url(r'athlete$', views.athlete, name='athlete'),
-    #url(r'index$', views.index, name='index'),
+    url(r'redis$', views.is_redis, name='redis'),
+    url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 
     url(r'$', views.home, name='home'),
 
-    #url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
-    #url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
-    url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]

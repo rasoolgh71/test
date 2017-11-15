@@ -28,8 +28,6 @@ class form_athlete(forms.ModelForm):
     skill = forms.ModelChoiceField(label="Skill",queryset=Skill.objects.all())
     name_skill = forms.CharField(max_length=50, label="name skill",required=False)
     profil = forms.CharField(max_length=300, label="profil",required=False)
-
-
     def get_due_date(self):
 
         diff = self.cleaned_data['birth_data'] - datetime.date.today()
