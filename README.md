@@ -1,6 +1,4 @@
 # test1
-## test2
-### test3
 **rasool**
  >tell me
 ##install pip
@@ -17,7 +15,7 @@ def home(request):
    return render(request,'task/hme.html')
    
  ```
-#the member is
+** the member is **
 - ali
 - reza
 - hasan
