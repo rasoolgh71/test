@@ -18,7 +18,7 @@ def home(request):
    
  ```
 #the member is
--ali
--reza
--hasan
+- ali
+- reza
+- hasan
 
