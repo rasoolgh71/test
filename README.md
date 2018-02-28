@@ -4,10 +4,11 @@
 **rasool**
  >tell me
 ##install pip
-'''
+```
 pip3 insatll python3-pip
 ip3 install virtualenv
-    
-'''
+  
+```
+
 
 
