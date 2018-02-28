@@ -24,6 +24,6 @@ def home(request):
 - [ ] a task list item
 - [ ] list syntax required
 - [ ] normal **formatting**, @mentions, #1234 refs
-- [ ] incomplete
+- [x] incomplete
 - [x] completed
 
