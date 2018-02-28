@@ -17,5 +17,8 @@ def home(request):
    return render(request,'task/hme.html')
    
  ```
-
+#the member is
+-ali
+-reza
+-hasan
 
