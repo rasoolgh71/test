@@ -3,6 +3,8 @@
 ### test3
 **rasool**
 >tell me 
-
+##install pip
+'''pip3 insatll python3-pip
+'''
 
 
