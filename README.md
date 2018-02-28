@@ -26,4 +26,4 @@ def home(request):
 - [ ] normal **formatting**, @mentions, #1234 refs
 - [x] incomplete
 - [x] completed
-
+![Google Logo](https://www.google.com/images/srpr/logo11w.png)
