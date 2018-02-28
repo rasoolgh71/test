@@ -9,6 +9,13 @@ pip3 insatll python3-pip
 ip3 install virtualenv
   
 ```
+```django
 
+import os
+import sys
+def home(request):
+   return render(request,'task/hme.html')
+   
+ ```
 
 
