@@ -28,9 +28,9 @@ def home(request):
 - [x] completed
 ![Google Logo](https://www.google.com/images/srpr/logo11w.png)
 #chatr
-|name|family|age|
-|----|------|---|
-|rasool|ghanna|23|
-|------|------|---|
-|ali|taghavi|34|
-|----|----|----|
+| name |  family | age |
+|------|---------|-----|
+|rasool|ghanna   |23   |
+|------|---------|---- |
+| ali  |taghavi  |34   |
+|------|---------|-----|
